@@ -54,7 +54,11 @@ class php::fpm::daemon (
       mode    => 0644,
     }
 
+    # install mod_fastcgi when apache is installed
+    if defined(Package['httpd']) {
+      package { 'mod_fcgid':
+        ensure => installed,
+      }
+    }
   }
-
 }
-

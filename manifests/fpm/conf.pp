@@ -75,7 +75,15 @@ define php::fpm::conf (
       mode    => '0644',
     }
 
+    # install mod_fastcgi when apache is installed
+    if defined(Package['httpd']) {
+      file { '/etc/httpd/conf.d/fcgid-php.conf':
+        content =>  template('php/httpd/fcgid-php.conf.erb'),
+      	owner   => 'root',
+      	group   => 'root',
+      	mode    => 0644,
+    	notify  => Service['httpd'],
+      } 
+    }
   }
-
 }
-
